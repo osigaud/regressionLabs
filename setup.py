@@ -3,7 +3,7 @@ import subprocess
 
 from setuptools import setup
 
-with open(os.path.join("regression_labs", "version.txt"), "r") as file_handler:
+with open("version.txt", "r") as file_handler:
     __version__ = file_handler.read().strip()
 
 # Taken from PyTorch code to have a different version per commit
