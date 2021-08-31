@@ -1,6 +1,7 @@
 import numpy as np
-from sample_generator import SampleGenerator
 from typing import Tuple
+
+from regression_labs.sample_generator import SampleGenerator
 
 
 class Batch:
