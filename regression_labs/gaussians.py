@@ -18,8 +18,6 @@ class Gaussians:
     def phi_output(self, x):
         """
         Get the output of the Gaussian features for a given input x of size N
-        The output is a vertical vector. If one wants a standard vector,
-        one needs to transpose it and take the first element of the result.
         
         :param x: A single or vector of dependent variables of size N
         :returns: A vector of feature outputs of size nb_features
@@ -33,7 +31,11 @@ class Gaussians:
         centers_mat = np.array([self.centers, ] * dim_x).transpose()
         widths_mat = np.array([self.sigma, ] * dim_x).transpose()
         phi = np.exp(-np.divide(np.square(input_mat - centers_mat), widths_mat))
-        return verti_to_horiz(phi)
+        if dim_x == 1:
+            return verti_to_horiz(phi)
+        else:
+            return phi.transpose()
+    
 
 if __name__ == '__main__':
     g = Gaussians(3)
