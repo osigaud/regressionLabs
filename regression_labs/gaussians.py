@@ -1,6 +1,13 @@
 import numpy as np
 
 
+def horiz_to_verti(vec):
+  return np.atleast_2d(vec).transpose()
+
+#Need to take the first element
+def verti_to_horiz(vec):
+  return vec.transpose()[0]
+
 class Gaussians:
     def __init__(self, nb_features):
         self.nb_features = nb_features
@@ -26,7 +33,7 @@ class Gaussians:
         centers_mat = np.array([self.centers, ] * dim_x).transpose()
         widths_mat = np.array([self.sigma, ] * dim_x).transpose()
         phi = np.exp(-np.divide(np.square(input_mat - centers_mat), widths_mat))
-        return phi
+        return verti_to_horiz(phi)
 
 if __name__ == '__main__':
     g = Gaussians(3)
