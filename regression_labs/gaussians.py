@@ -18,6 +18,8 @@ class Gaussians:
     def phi_output(self, x):
         """
         Get the output of the Gaussian features for a given input x of size N
+        As output, we get a N x nb_features matrix
+        Thus if x is just one number, we get a vertical vector
         
         :param x: A single or vector of dependent variables of size N
         :returns: A vector of feature outputs of size nb_features
@@ -31,10 +33,7 @@ class Gaussians:
         centers_mat = np.array([self.centers, ] * dim_x).transpose()
         widths_mat = np.array([self.sigma, ] * dim_x).transpose()
         phi = np.exp(-np.divide(np.square(input_mat - centers_mat), widths_mat))
-        if dim_x == 1:
-            return verti_to_horiz(phi)
-        else:
-            return phi.transpose()
+        return phi
     
 
 if __name__ == '__main__':
