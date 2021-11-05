@@ -8,7 +8,6 @@ class Batch:
     def __init__(self):
         self.x_data = []
         self.y_data = []
-        self.batch_size = 50
         self.g = SampleGenerator()
 
     def reset_batch(self) -> None:
@@ -22,24 +21,24 @@ class Batch:
         self.y_data.append(y)
         return x, y
 
-    def make_nonlinear_batch_data(self) -> None:
+    def make_nonlinear_batch_data(self, size=50) -> None:
         """ 
         Generate a batch of non linear data and store it into numpy structures
         """
         self.reset_batch()
-        for i in range(self.batch_size):
+        for i in range(size):
             # Draw a random sample on the interval [0,1]
             x = np.random.random()
             y = self.g.generate_non_linear_samples(x)
             self.x_data.append(x)
             self.y_data.append(y)
 
-    def make_linear_batch_data(self) -> None:
+    def make_linear_batch_data(self, size=50) -> None:
         """ 
         Generate a batch of linear data and store it into numpy structures
         """
         self.reset_batch()
-        for i in range(self.batch_size):
+        for i in range(size):
             # Draw a random sample on the interval [0,1]
             x = np.random.random()
             y = self.g.generate_linear_samples(x)
