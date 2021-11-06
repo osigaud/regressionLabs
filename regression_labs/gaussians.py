@@ -4,7 +4,7 @@ import numpy as np
 def horiz_to_verti(vec):
   return np.atleast_2d(vec).transpose()
 
-#Need to take the first element
+# Need to take the first element
 def verti_to_horiz(vec):
   return vec.transpose()[0]
 
