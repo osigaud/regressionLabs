@@ -18,7 +18,7 @@ class Gaussians:
     def phi_output(self, x):
         """
         Get the output of the Gaussian features for a given input x of size N
-        As output, we get a N x nb_features matrix
+        As output, we get a (nb_features x N ) matrix 
         Thus if x is just one number, we get a vertical vector
         
         :param x: A single or vector of dependent variables of size N
