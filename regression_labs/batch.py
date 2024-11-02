@@ -1,46 +1,56 @@
 import numpy as np
 from typing import Tuple
 
-from regression_labs.sample_generator import SampleGenerator
-
 
 class Batch:
-    def __init__(self):
-        self.x_data = []
-        self.y_data = []
-        self.g = SampleGenerator()
+    def __init__(self, size:int):
+        self.x_data = np.zeros((size,1))
+        self.y_data = np.zeros(size)
+        self.current = 0
+        self.size = size
 
-    def reset_batch(self) -> None:
-        self.x_data = []
-        self.y_data = []
+    def add_sample(self, x, y) -> None:
+        self.x_data[self.current] = x
+        self.y_data[self.current] = y
+        self.current = self.current + 1
 
-    def add_non_linear_sample(self) -> Tuple[float, float]:
-        x = np.random.random()
-        y = self.g.generate_non_linear_samples(x)
-        self.x_data.append(x)
-        self.y_data.append(y)
+    def get_random_sample(self) -> Tuple[np.array, float]:
+        index = np.random.randint(self.size)
+        return self.x_data[index].reshape(1, self.x_data.shape[1]), self.y_data[index]
+
+    """ Dangerous to use, needs to reinitialize current
+    def has_next(self) -> bool:
+        return self.current < self.size
+
+    def get_next(self) -> Tuple[np.array, float]:
+        x, y = self.x_data[self.current], self.y_data[self.current]
+        self.current = self.current + 1
         return x, y
-
-    def make_nonlinear_batch_data(self, size=50) -> None:
-        """ 
-        Generate a batch of non linear data and store it into numpy structures
+    """
+    
+    def get_range(self):
         """
-        self.reset_batch()
-        for i in range(size):
-            # Draw a random sample on the interval [0,1]
-            x = np.random.random()
-            y = self.g.generate_non_linear_samples(x)
-            self.x_data.append(x)
-            self.y_data.append(y)
-
-    def make_linear_batch_data(self, size=50) -> None:
-        """ 
-        Generate a batch of linear data and store it into numpy structures
+        Return the range of y values in the batch
         """
-        self.reset_batch()
-        for i in range(size):
-            # Draw a random sample on the interval [0,1]
-            x = np.random.random()
-            y = self.g.generate_linear_samples(x)
-            self.x_data.append(x)
-            self.y_data.append(y)
+        my_min = np.infty
+        my_max = -np.infty
+        for i in range(self.size):
+            y = self.y_data[i]
+            if y > my_max:
+                my_max = y
+            if y < my_min:
+                my_min = y
+        return my_min, my_max
+    
+    def get_minibatch(self, size):
+        """
+        Return a minibatch of size elements randomly drawn from the batch
+        The same element can be drawn several times
+        """
+        minibatch = Batch(size)
+        for _ in range(size):
+            x, y = self.get_random_sample()
+            minibatch.add_sample(x, y)
+        return minibatch
+            
+
