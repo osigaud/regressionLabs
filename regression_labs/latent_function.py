@@ -62,7 +62,7 @@ class LinearLatentFunction(LatentFunction):
     
 class NonLinearLatentXDFunction(LatentFunction):
 
-    def __init__(self, int dim):
+    def __init__(self, dim: int):
         self.c0 = np.random.random()*2
         self.c1 = -np.random.random()*4
         self.c2 = -np.random.random()*4
