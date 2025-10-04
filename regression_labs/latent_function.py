@@ -69,9 +69,9 @@ class NonLinearLatentXDFunction(LatentFunction):
     
     def get_batch(self, size:int) -> Batch:
         batch = Batch(size)
-        x = np.zeros(dim)
+        x = np.zeros(self.dim)
         for _ in range(size):
-            for j in range(dim):
+            for j in range(self.dim):
                 x[j] = np.random.random()
                 y = self.get_noisy_value(x)
                 batch.add_sample(x, y)
