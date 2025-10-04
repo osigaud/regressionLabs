@@ -8,6 +8,7 @@ class Batch:
         self.y_data = np.zeros(size)
         self.current = 0
         self.size = size
+        self.dim = dim
 
     def add_sample(self, x, y) -> None:
         self.x_data[self.current] = x
@@ -47,7 +48,7 @@ class Batch:
         Return a minibatch of size elements randomly drawn from the batch
         The same element can be drawn several times
         """
-        minibatch = Batch(size)
+        minibatch = Batch(size, self.dim)
         for _ in range(size):
             x, y = self.get_random_sample()
             minibatch.add_sample(x, y)
