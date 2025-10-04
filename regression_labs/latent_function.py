@@ -61,11 +61,9 @@ class NonLinearLatentFunction(LatentFunction):
 class NonLinearLatentXDFunction(LatentFunction):
 
     def __init__(self, dim: int):
-        self.c0 = np.random.random()*2
-        self.c1 = -np.random.random()*4
-        self.c2 = -np.random.random()*4
-        self.c3 = np.random.random()*4
+        super().__init__()
         self.dim = dim
+        self.sigma = 0.1
     
     def get_batch(self, size:int) -> Batch:
         batch = Batch(size)
@@ -76,17 +74,6 @@ class NonLinearLatentXDFunction(LatentFunction):
                 y = self.get_noisy_value(x)
                 batch.add_sample(x, y)
         return batch
-    
-    def get_noisy_value(self, x):
-        """
-        Generate a noisy nonlinear data sample from a given data point in the range [0,1]
-        :param x: A scalar dependent variable for which to calculate the output y_noisy
-        :returns: The output with Gaussian noise added
-        """
-        y = self.get_value(x)
-        noise = self.sigma * np.random.random()
-        y_noisy = y + noise
-        return y_noisy
 
     def get_value(self, x):
         """
