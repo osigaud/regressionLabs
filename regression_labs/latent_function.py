@@ -66,7 +66,7 @@ class NonLinearLatentXDFunction(LatentFunction):
         self.sigma = 0.1
     
     def get_batch(self, size:int) -> Batch:
-        batch = Batch(size)
+        batch = Batch(size, self.dim)
         x = np.zeros(self.dim)
         for _ in range(size):
             for j in range(self.dim):
