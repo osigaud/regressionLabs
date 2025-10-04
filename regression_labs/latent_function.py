@@ -71,8 +71,8 @@ class NonLinearLatentXDFunction(LatentFunction):
         for _ in range(size):
             for j in range(self.dim):
                 x[j] = np.random.random()
-                y = self.get_noisy_value(x)
-                batch.add_sample(x, y)
+            y = self.get_noisy_value(x)
+            batch.add_sample(x, y)
         return batch
 
     def get_value(self, x):
