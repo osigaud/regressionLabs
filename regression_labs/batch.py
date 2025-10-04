@@ -3,8 +3,8 @@ from typing import Tuple
 
 
 class Batch:
-    def __init__(self, size:int):
-        self.x_data = np.zeros((size,1))
+    def __init__(self, size:int, dim:int=1):
+        self.x_data = np.zeros((size, dim))
         self.y_data = np.zeros(size)
         self.current = 0
         self.size = size

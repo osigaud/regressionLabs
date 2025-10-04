@@ -30,22 +30,7 @@ class LatentFunction:
         noise = self.sigma * np.random.random()
         y_noisy = y + noise
         return y_noisy
-        
 
-
-class NonLinearLatentFunction(LatentFunction):
-
-    def __init__(self):
-        super().__init__()
-        self.sigma = 0.1
-
-    def get_value(self, x):
-        """
-        The function is one dimensional, this is a specific case, so we always use x[0]
-        """
-        return self.c0 - x[0] - math.sin(self.c1 * math.pi * x[0] ** 3) * math.cos(self.c2 * math.pi * x[0] ** 3) * math.exp(-x[0] ** 4)
-    
-    
 
 class LinearLatentFunction(LatentFunction):
 
@@ -58,6 +43,19 @@ class LinearLatentFunction(LatentFunction):
         The function is one dimensional, this is a specific case, so we always use x[0]
         """
         return self.c3 * x[0] + self.c1
+
+    
+class NonLinearLatentFunction(LatentFunction):
+
+    def __init__(self):
+        super().__init__()
+        self.sigma = 0.1
+
+    def get_value(self, x):
+        """
+        The function is one dimensional, this is a specific case, so we always use x[0]
+        """
+        return self.c0 - x[0] - math.sin(self.c1 * math.pi * x[0] ** 3) * math.cos(self.c2 * math.pi * x[0] ** 3) * math.exp(-x[0] ** 4)
 
     
 class NonLinearLatentXDFunction(LatentFunction):
